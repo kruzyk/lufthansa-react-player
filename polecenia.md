@@ -1,3 +1,9 @@
+# Git 
+cd ..
+git clone https://github.com/ev45ive/lufthansa-react-player.git lufthansa-react-player
+cd lufthansa-react-player 
+npm i
+npm start
 
 # Visual Studio Code 
 https://code.visualstudio.com/
