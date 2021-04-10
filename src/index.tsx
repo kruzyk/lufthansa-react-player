@@ -18,6 +18,25 @@ const comments = [
 //   return React.createElement('div', { className: 'list-group-item' }, item.text)
 // })
 
+debugger;
+
+// const UserCard = #user-card.m-4.card>.card-body[data-x=1]>h3{Title}+p{Imie}+.list-group.list-group-flush>list-group-item*3{Text}
+const UserCard = <div>
+  <div id="user-card" className="m-4 card" style={
+    { color: '#000', border: '1px solid', borderColor: user.color }
+  }>
+    <div className="card-body">
+      <h3>{user.imie}</h3>
+      <p>{'Ma : ' + user.pet}</p>
+      <div className="list-group list-group-flush">
+        {comments.map((item, index) => <div className="list-group-item" key={item.id}>{item.text}</div>)}
+      </div>
+    </div>
+  </div>
+</div>
+
+ReactDOM.render(UserCard, document.getElementById('root'))
+
 const vdiv2 = React.createElement('div', {
   id: 'user-card',
   className: 'm-4 card',
@@ -36,7 +55,7 @@ const vdiv2 = React.createElement('div', {
     ),
     React.createElement('input', { placeholder: 'Dodaj komentarz' }))
 )
-ReactDOM.render(vdiv2, document.getElementById('root'))
+// ReactDOM.render(vdiv2, document.getElementById('root'))
 
 
 export { }
