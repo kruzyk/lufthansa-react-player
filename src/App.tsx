@@ -1,6 +1,8 @@
 import React from 'react';
-import './App.css';
 import { PlaylistsView } from './playlists/containers/PlaylistsView';
+
+// npm i bootstrap
+import 'bootstrap/dist/css/bootstrap.css'
 
 function App() {
   return (
