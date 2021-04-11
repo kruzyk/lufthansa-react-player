@@ -14,6 +14,10 @@ const playlist = {
 
 export const PlaylistEditForm = (props: Props) => {
 
+    // if(Math.random() > .5){
+    //     const [magic, setMagic] = useState('Magic!')
+    // }
+
     const [name, setName] = useState(playlist.name)
     const [isPublic, setIsPublic] = useState(playlist.public)
     const [description, setDescription] = useState(playlist.description)
@@ -22,7 +26,7 @@ export const PlaylistEditForm = (props: Props) => {
         <div>
             <h3>PlaylistEditForm</h3>
 
-            <div className="form-group" >
+            <div className="form-group">
                 <label>Name:</label>
                 <input type="text" className="form-control" value={name}
                     onChange={event => setName(event.target.value)} />
