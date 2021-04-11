@@ -1,5 +1,5 @@
 // tsrafc
-import React from 'react'
+import React, { useState } from 'react'
 import { Playlist } from '../../model/Playlist'
 import { PlaylistDetails } from '../components/PlaylistDetails'
 import { PlaylistEditForm } from '../components/PlaylistEditForm'
@@ -37,6 +37,8 @@ const playlists: Playlist[] = [
 ]
 
 export const PlaylistsView = (props: Props) => {
+    const [selectedId, setSelectedId] = useState<string | undefined>('123')
+
     return (
         <div>
             <h4>PlaylistsView</h4>
@@ -45,7 +47,18 @@ export const PlaylistsView = (props: Props) => {
 
             <div className="row">
                 <div className="col">
-                    <PlaylistList playlists={playlists}/>
+                    <PlaylistList
+                        onSelected={id => setSelectedId(id)}
+                        playlists={playlists}
+                        selectedId={selectedId} />
+                   
+                    <PlaylistList
+                        onSelected={id => setSelectedId(id)}
+                        playlists={playlists}
+                        selectedId={selectedId} />
+
+                    {/* <input type="text" value={zmienna}
+                        onChange={event => setCostam(event.costam) }/> */}
                 </div>
                 <div className="col">
                     <PlaylistDetails playlist={playlist} />
