@@ -1,0 +1,12 @@
+.playlistPublic,
+.playlistPrivate {
+    border-bottom: 1px solid currentColor;
+}
+
+.playlistPublic {
+    color: green;
+}
+
+.playlistPrivate {
+    color: red;
+}

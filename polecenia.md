@@ -13,6 +13,10 @@ code -v
 c185983a683d14c396952dd432459097bc7f757f
 x64
 
+## Extensions
+https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+
+
 # NodeJS
 https://nodejs.org/en/
 node -v
@@ -80,3 +84,17 @@ npm install
 npm install -ci 
 
 
+# Playlists 
+
+mkdir -p src/playlists/components
+mkdir -p src/playlists/containers
+
+touch src/playlists/components/PlaylistList.tsx
+touch src/playlists/components/PlaylistDetails.tsx
+touch src/playlists/components/PlaylistEditForm.tsx
+
+touch src/playlists/containers/PlaylistsView.tsx
+
+<!-- touch playlists/containers/MyPlaylistsView.tsx
+touch playlists/containers/TopPlaylistsView.tsx
+touch playlists/containers/UserPlaylistsView.tsx -->
