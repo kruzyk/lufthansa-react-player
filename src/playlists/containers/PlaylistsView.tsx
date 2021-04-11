@@ -1,5 +1,5 @@
 // tsrafc
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Playlist } from '../../model/Playlist'
 import { PlaylistDetails } from '../components/PlaylistDetails'
 import { PlaylistEditForm } from '../components/PlaylistEditForm'
@@ -37,9 +37,21 @@ const playlists: Playlist[] = [
 ]
 
 export const PlaylistsView = (props: Props) => {
+    const [forceUpdate, setForceUpdate] = useState(Date.now())
     const [selectedId, setSelectedId] = useState<string | undefined>('234')
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>()
 
+    // Dont Repeat Yourself
+    // We Enjoy Typing 
+
+
+    useEffect(() => {
+        console.log('Render Real DOM')
+        setSelectedPlaylist(playlists.find(p => p.id == selectedId))
+
+    }, [selectedId, forceUpdate])
+
+    console.log('Render VirtualDOM')
     return (
         <div>
             <h4>PlaylistsView</h4>
@@ -49,11 +61,7 @@ export const PlaylistsView = (props: Props) => {
             <div className="row">
                 <div className="col">
                     <PlaylistList
-                        onSelected={id => {
-
-                            setSelectedPlaylist(playlists.find(p => p.id == id))
-                            setSelectedId(id)
-                        }}
+                        onSelected={id => { setSelectedId(id) }}
                         playlists={playlists}
                         selectedId={selectedId} />
 
@@ -65,7 +73,7 @@ export const PlaylistsView = (props: Props) => {
 
                     {selectedPlaylist && <PlaylistDetails playlist={selectedPlaylist} />}
 
-                    <PlaylistEditForm />
+                    {/* <PlaylistEditForm /> */}
                 </div>
             </div>
         </div>
