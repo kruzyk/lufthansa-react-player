@@ -1,5 +1,7 @@
 import React from 'react'
-import './PlaylistDetails.css'
+import styles from './PlaylistDetails.module.css'
+
+// console.log(styles)
 
 interface Props {
 
@@ -24,7 +26,7 @@ export const PlaylistDetails = (props: Props) => {
                 <dd>{playlist.name}</dd>
 
                 <dt>Public:</dt>
-                <dd className={playlist.public ? 'playlistPublic' : 'playlistPrivate'}>
+                <dd className={playlist.public ? styles.playlistPublic : styles.playlistPrivate}>
                     {playlist.public ? 'Yes' : 'No'}
                 </dd>
 
