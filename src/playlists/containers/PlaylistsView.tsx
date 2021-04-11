@@ -13,6 +13,28 @@ const playlist = {
     description: 'Lubie placki'
 }
 
+const playlists = [
+    {
+        id: '123',
+        name: 'Playlista 123',
+        public: true,
+        description: 'Lubie placki'
+    },
+    {
+        id: '234',
+        name: 'Playlista 234',
+        public: false,
+        description: 'Lubie placki'
+    },
+    {
+        id: '345',
+        name: 'Playlista 345',
+        public: true,
+        description: 'Lubie placki'
+    },
+
+]
+
 export const PlaylistsView = (props: Props) => {
     return (
         <div>

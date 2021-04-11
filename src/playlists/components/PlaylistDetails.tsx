@@ -1,15 +1,11 @@
 import React from 'react'
+import { Playlist } from '../../model/Playlist'
 import styles from './PlaylistDetails.module.css'
 
 // console.log(styles)
 
 interface Props {
-    playlist: {
-        id: string;
-        name: string;
-        public: boolean;
-        description: string;
-    }
+    playlist: Playlist
 }
 
 
