@@ -1,30 +1,40 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { Playlist } from '../../model/Playlist'
 
 interface Props {
-
-}
-
-const playlist = {
-    id: '123',
-    name: 'Placki form',
-    public: true,
-    description: 'Lubie placki'
+    playlist: Playlist;
 }
 
 
-export const PlaylistEditForm = (props: Props) => {
+export const PlaylistEditForm = ({ playlist }: Props) => {
+    const [message, setMessage] = useState('')
+    const [acceptNew, setAcceptNew] = useState(false)
 
-    // if(Math.random() > .5){
-    //     const [magic, setMagic] = useState('Magic!')
-    // }
-
+    const [playlistId, setPlaylistId] = useState(playlist.id)
     const [name, setName] = useState(playlist.name)
     const [isPublic, setIsPublic] = useState(playlist.public)
     const [description, setDescription] = useState(playlist.description)
 
+    useEffect(() => {
+        if (playlistId !== playlist.id) {
+            if (acceptNew) {
+                setName(playlist.name)
+                setPlaylistId(playlist.id)
+                setIsPublic(playlist.public)
+                setDescription(playlist.description)
+                setAcceptNew(false)
+                setMessage('')
+            } else {
+                setMessage('Unsaved Changes')
+            }
+        }
+    }, [playlist, acceptNew, playlistId])
+
     return (
         <div>
             <h3>PlaylistEditForm</h3>
+
+            {message && <div className="alert alert-danger">{message} <button onClick={() => setAcceptNew(true)}>OK</button></div>}
 
             <div className="form-group">
                 <label>Name:</label>

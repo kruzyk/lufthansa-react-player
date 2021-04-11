@@ -44,14 +44,13 @@ export const PlaylistsView = (props: Props) => {
     // Dont Repeat Yourself
     // We Enjoy Typing 
 
-
     useEffect(() => {
-        console.log('Render Real DOM')
+        // console.log('Render Real DOM')
         setSelectedPlaylist(playlists.find(p => p.id == selectedId))
 
     }, [selectedId, forceUpdate])
 
-    console.log('Render VirtualDOM')
+    // console.log('Render VirtualDOM')
     return (
         <div>
             <h4>PlaylistsView</h4>
@@ -73,7 +72,7 @@ export const PlaylistsView = (props: Props) => {
 
                     {selectedPlaylist && <PlaylistDetails playlist={selectedPlaylist} />}
 
-                    {/* <PlaylistEditForm /> */}
+                    {selectedPlaylist && <PlaylistEditForm  playlist={selectedPlaylist} />}
                 </div>
             </div>
         </div>
