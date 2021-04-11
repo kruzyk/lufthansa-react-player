@@ -25,6 +25,8 @@ export const PlaylistDetails: React.FC<Props> = ({ playlist }) => {
                 <dt>Description:</dt>
                 <dd>{playlist.description}</dd>
             </dl>
+            
+            <button className="btn btn-edit">Edit</button>
         </div>
     )
 }

@@ -53,6 +53,8 @@ export const PlaylistEditForm = ({ playlist }: Props) => {
                 <textarea className="form-control" value={description} onChange={e => setDescription(e.target.value)} ></textarea>
             </div>
 
+            <button className="btn btn-danger">Cancel</button>
+            <button className="btn btn-success">Save</button>
         </div>
     )
 }

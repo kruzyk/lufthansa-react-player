@@ -40,17 +40,35 @@ export const PlaylistsView = (props: Props) => {
     const [forceUpdate, setForceUpdate] = useState(Date.now())
     const [selectedId, setSelectedId] = useState<string | undefined>('234')
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>()
+    const [mode, setMode] = useState<'details' | 'form'>('details')
 
-    // Dont Repeat Yourself
-    // We Enjoy Typing 
+    /* TODO:
+        - Przycisk Edit w Details "przełącza" na formularza (*zmiana mode! props!)
+        - Przycisk Cancel w Formularzu "przełącza" na details (*zmiana mode! props!)
+        - Przycisk Save w Formularzu:
+            - "przełącza" na details (*zmiana mode! props!)
+            - przekazuje Draft (szkic / nizapisane dane playlisty *props!) do PlaylistsView
+            - PlaylistsView podmienia szkic na liście playlist (! Immutable - kopia renderuje!)
+
+        - Zapisana playlista jest widoczna na liscie i w details!
+    */
+
+    const edit = () => {/*  */ }
+    const cancel = () => {/*  */ }
+    const save = (draft: Playlist) => {
+        /* update playlistS!   */
+        const index = playlists.findIndex(p => p.id === draft.id)
+        if (index !== -1) {
+            playlists[index] = draft /// WRONG!! Mutable Code!
+        }
+    }
+
 
     useEffect(() => {
-        // console.log('Render Real DOM')
         setSelectedPlaylist(playlists.find(p => p.id == selectedId))
 
     }, [selectedId, forceUpdate])
 
-    // console.log('Render VirtualDOM')
     return (
         <div>
             <h4>PlaylistsView</h4>
@@ -70,9 +88,9 @@ export const PlaylistsView = (props: Props) => {
                 </div>
                 <div className="col">
 
-                    {selectedPlaylist && <PlaylistDetails playlist={selectedPlaylist} />}
+                    {selectedPlaylist && mode === 'details' && <PlaylistDetails playlist={selectedPlaylist} />}
 
-                    {selectedPlaylist && <PlaylistEditForm  playlist={selectedPlaylist} />}
+                    {selectedPlaylist && mode === 'form' && <PlaylistEditForm playlist={selectedPlaylist} />}
                 </div>
             </div>
         </div>
