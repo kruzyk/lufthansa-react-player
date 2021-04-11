@@ -1,7 +1,8 @@
 import React from 'react'
+import { Playlist } from '../../model/Playlist'
 
 interface Props {
-
+    // playlists: Playlist[]
 }
 
 export const PlaylistList = (props: Props) => {
