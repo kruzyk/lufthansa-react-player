@@ -37,7 +37,8 @@ const playlists: Playlist[] = [
 ]
 
 export const PlaylistsView = (props: Props) => {
-    const [selectedId, setSelectedId] = useState<string | undefined>('123')
+    const [selectedId, setSelectedId] = useState<string | undefined>('234')
+    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>()
 
     return (
         <div>
@@ -48,20 +49,21 @@ export const PlaylistsView = (props: Props) => {
             <div className="row">
                 <div className="col">
                     <PlaylistList
-                        onSelected={id => setSelectedId(id)}
+                        onSelected={id => {
+
+                            setSelectedPlaylist(playlists.find(p => p.id == id))
+                            setSelectedId(id)
+                        }}
                         playlists={playlists}
                         selectedId={selectedId} />
-                   
-                    <PlaylistList
-                        onSelected={id => setSelectedId(id)}
-                        playlists={playlists}
-                        selectedId={selectedId} />
+
 
                     {/* <input type="text" value={zmienna}
                         onChange={event => setCostam(event.costam) }/> */}
                 </div>
                 <div className="col">
-                    <PlaylistDetails playlist={playlist} />
+
+                    {selectedPlaylist && <PlaylistDetails playlist={selectedPlaylist} />}
 
                     <PlaylistEditForm />
                 </div>
