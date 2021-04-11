@@ -26,8 +26,6 @@ export const PlaylistsView = (props: Props) => {
                 </div>
                 <div className="col">
                     <PlaylistDetails playlist={playlist} />
-                    <PlaylistDetails playlist={playlist} />
-                    <PlaylistDetails />
 
                     <PlaylistEditForm />
                 </div>
