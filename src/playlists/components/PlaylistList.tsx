@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Playlist } from '../../model/Playlist'
 
 interface Props {
-    // playlists: Playlist[]
+    playlists: Playlist[]
 }
 
-export const PlaylistList = (props: Props) => {
+export const PlaylistList = ({ playlists }: Props) => {
+
+    const [selectedId, setSelectedId] = useState<string | null>(null)
+
     return (
         <div>
-            PlaylistList
+            PlaylistList {selectedId}
 
             <div className="list-group">
-                <div className="list-group-item">Text</div>
-                <div className="list-group-item">Text</div>
-                <div className="list-group-item">Text</div>
+                {playlists.map((playlist, index) =>
+                    <div className={`list-group-item ${selectedId === playlist.id ? 'active' : ''}`}
+                        onClick={() => setSelectedId(playlist.id)}>
+
+                        {playlist.name}
+                    </div>
+                )}
             </div>
         </div>
     )

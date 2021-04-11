@@ -1,5 +1,6 @@
 // tsrafc
 import React from 'react'
+import { Playlist } from '../../model/Playlist'
 import { PlaylistDetails } from '../components/PlaylistDetails'
 import { PlaylistEditForm } from '../components/PlaylistEditForm'
 import { PlaylistList } from '../components/PlaylistList'
@@ -13,7 +14,7 @@ const playlist = {
     description: 'Lubie placki'
 }
 
-const playlists = [
+const playlists: Playlist[] = [
     {
         id: '123',
         name: 'Playlista 123',
@@ -44,7 +45,7 @@ export const PlaylistsView = (props: Props) => {
 
             <div className="row">
                 <div className="col">
-                    <PlaylistList />
+                    <PlaylistList playlists={playlists}/>
                 </div>
                 <div className="col">
                     <PlaylistDetails playlist={playlist} />
