@@ -18,8 +18,6 @@ export const PlaylistEditForm = (props: Props) => {
     const [isPublic, setIsPublic] = useState(playlist.public)
     const [description, setDescription] = useState(playlist.description)
 
-    // const updateValue = (e: ChangeEvent<HTMLInputElement>) => { e.target }
-
     return (
         <div>
             <h3>PlaylistEditForm</h3>

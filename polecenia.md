@@ -5,6 +5,11 @@ cd lufthansa-react-player
 npm i
 npm start
 
+## GIT UPDate
+git stash -u 
+git pull -f 
+
+
 # Visual Studio Code 
 https://code.visualstudio.com/
 ### Help -> About
