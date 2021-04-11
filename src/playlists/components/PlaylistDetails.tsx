@@ -4,24 +4,22 @@ import styles from './PlaylistDetails.module.css'
 // console.log(styles)
 
 interface Props {
-
+    playlist: {
+        id: string;
+        name: string;
+        public: boolean;
+        description: string;
+    }
 }
 
-const playlist = {
-    id: '123',
-    name: 'Placki',
-    public: true,
-    description: 'Lubie placki'
-}
+export const PlaylistDetails = ({ playlist }: Props) => {
+    // const playlist = props.playlist
+    // const { playlist } = props;
 
-
-export const PlaylistDetails = (props: Props) => {
     return (
         <div>
-            Details
-
             {/* dl>(dt{Name:}+dd{value})*3 */}
-            <dl data-playlist-id="123">
+            <dl data-playlist-id={playlist.id}>
                 <dt>Name:</dt>
                 <dd>{playlist.name}</dd>
 

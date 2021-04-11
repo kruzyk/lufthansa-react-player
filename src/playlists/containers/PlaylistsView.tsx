@@ -4,8 +4,13 @@ import { PlaylistDetails } from '../components/PlaylistDetails'
 import { PlaylistEditForm } from '../components/PlaylistEditForm'
 import { PlaylistList } from '../components/PlaylistList'
 
-interface Props {
+interface Props {}
 
+const playlist = {
+    id: '123',
+    name: 'Placki',
+    public: true,
+    description: 'Lubie placki'
 }
 
 export const PlaylistsView = (props: Props) => {
@@ -18,9 +23,9 @@ export const PlaylistsView = (props: Props) => {
             <div className="row">
                 <div className="col">
                     <PlaylistList />
-                </div>  
+                </div>
                 <div className="col">
-                    <PlaylistDetails />
+                    <PlaylistDetails playlist={playlist} />
                     <PlaylistEditForm />
                 </div>
             </div>
