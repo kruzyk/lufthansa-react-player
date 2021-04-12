@@ -5,11 +5,12 @@ import styles from './PlaylistDetails.module.css'
 // console.log(styles)
 
 interface Props {
-    playlist: Playlist
+    playlist: Playlist,
+    edit: React.MouseEventHandler<HTMLButtonElement>
 }
 
 
-export const PlaylistDetails: React.FC<Props> = ({ playlist }) => {
+export const PlaylistDetails: React.FC<Props> = ({ playlist, edit }) => {
     return (
         <div>
             <dl data-playlist-id={playlist.id}>
@@ -26,23 +27,8 @@ export const PlaylistDetails: React.FC<Props> = ({ playlist }) => {
                 <dd>{playlist.description}</dd>
             </dl>
             
-            <button className="btn btn-edit">Edit</button>
+            <button className="btn btn-danger" onClick={edit}>Edit</button>
         </div>
     )
 }
 
-// PlaylistDetails.defaultProps = {
-//     playlist: {
-//         id: '',
-//         name: 'Default',
-//         public: false,
-//         description: ''
-//     }
-// }
-
-
-    // if (!playlist) {
-    //     return <div>
-    //         <p className="alert alert-info">Please select playlist </p>
-    //     </div>
-    // }
