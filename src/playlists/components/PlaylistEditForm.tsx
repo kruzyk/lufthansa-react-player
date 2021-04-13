@@ -3,10 +3,11 @@ import { Playlist } from '../../model/Playlist'
 
 interface Props {
     playlist: Playlist;
+    cancel: React.MouseEventHandler<HTMLButtonElement>;
+    save: (draft: Playlist) => void
 }
 
-
-export const PlaylistEditForm = ({ playlist }: Props) => {
+export const PlaylistEditForm = ({ playlist, cancel, save }: Props) => {
     const [message, setMessage] = useState('')
     const [acceptNew, setAcceptNew] = useState(false)
 
@@ -14,6 +15,15 @@ export const PlaylistEditForm = ({ playlist }: Props) => {
     const [name, setName] = useState(playlist.name)
     const [isPublic, setIsPublic] = useState(playlist.public)
     const [description, setDescription] = useState(playlist.description)
+
+    const submitForm = () => {
+        save({
+            id: playlistId, 
+            name: name, 
+            public: isPublic, 
+            description: description
+        })
+    }
 
     useEffect(() => {
         if (playlistId !== playlist.id) {
@@ -35,7 +45,7 @@ export const PlaylistEditForm = ({ playlist }: Props) => {
             <h3>PlaylistEditForm</h3>
 
             {message && <div className="alert alert-danger">{message} <button onClick={() => setAcceptNew(true)}>OK</button></div>}
-
+            
             <div className="form-group">
                 <label>Name:</label>
                 <input type="text" className="form-control" value={name}
@@ -53,19 +63,9 @@ export const PlaylistEditForm = ({ playlist }: Props) => {
                 <textarea className="form-control" value={description} onChange={e => setDescription(e.target.value)} ></textarea>
             </div>
 
-            <button className="btn btn-danger">Cancel</button>
-            <button className="btn btn-success">Save</button>
+            <button className="btn btn-danger" onClick={cancel}>Cancel</button>
+            <button className="btn btn-success" onClick={submitForm}>Save</button>
         </div>
     )
 }
 
-
-
-// const NameField = () => {
-//     const [name, setName] = useState(playlist.name)
-//     return <div className="form-group" >
-//         <label>Name:</label>
-//         <input type="text" className="form-control" value={name} onChange={event => { setName(event.target.value) }} />
-//         <p>{name.length} / 170</p>
-//     </div>
-// }
