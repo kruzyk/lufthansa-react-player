@@ -2,13 +2,10 @@ import React from 'react'
 import { Playlist } from '../../model/Playlist'
 import styles from './PlaylistDetails.module.css'
 
-// console.log(styles)
-
 interface Props {
-    playlist: Playlist,
-    edit: React.MouseEventHandler<HTMLButtonElement>
+    playlist: Playlist;
+    edit: React.MouseEventHandler<HTMLButtonElement>;
 }
-
 
 export const PlaylistDetails: React.FC<Props> = ({ playlist, edit }) => {
     return (
