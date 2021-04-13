@@ -7,44 +7,37 @@ import { PlaylistList } from '../components/PlaylistList'
 
 interface Props { }
 
-const playlist = {
-    id: '123',
-    name: 'Placki',
-    public: true,
-    description: 'Lubie placki'
-}
-
-const playlists: Playlist[] = [
+const data: Playlist[] = [
     {
         id: '123',
-        name: 'Playlista 123',
+        name: 'Playlista 😇',
         public: true,
-        description: 'Lubie placki'
+        description: 'no i co ja dzis polubie?..🤔'
     },
     {
         id: '234',
-        name: 'Playlista 234',
+        name: 'Playlista 😁',
         public: false,
-        description: 'Lubie placki'
+        description: 'moze polubię TypeScript?. 🚀'
     },
     {
         id: '345',
-        name: 'Playlista 345',
+        name: 'Playlista 😆',
         public: true,
-        description: 'Lubie placki'
+        description: 'albo wszystko polubię co mi tam 😅💖'
     },
 
 ]
 
 export const PlaylistsView = (props: Props) => {
-    const [forceUpdate, setForceUpdate] = useState(Date.now())
     const [selectedId, setSelectedId] = useState<string | undefined>('234')
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>()
     const [mode, setMode] = useState<'details' | 'form'>('details')
+    const [playlists, setPlaylists] = useState<Playlist[]>(data)
 
     /* TODO:
-        - Przycisk Edit w Details "przełącza" na formularza (*zmiana mode! props!)
-        - Przycisk Cancel w Formularzu "przełącza" na details (*zmiana mode! props!)
+        - Przycisk Edit w Details "przełącza" na formularza (*zmiana mode! props!) **=> ---DONE
+        - Przycisk Cancel w Formularzu "przełącza" na details (*zmiana mode! props!) **=> ---DONE
         - Przycisk Save w Formularzu:
             - "przełącza" na details (*zmiana mode! props!)
             - przekazuje Draft (szkic / nizapisane dane playlisty *props!) do PlaylistsView
@@ -53,44 +46,47 @@ export const PlaylistsView = (props: Props) => {
         - Zapisana playlista jest widoczna na liscie i w details!
     */
 
-    const edit = () => {/*  */ }
-    const cancel = () => {/*  */ }
+    const edit = () => {
+        setMode('form')
+    }
+    const cancel = () => {
+        setMode('details')
+    }
     const save = (draft: Playlist) => {
-        /* update playlistS!   */
+        setMode('details')
         const index = playlists.findIndex(p => p.id === draft.id)
         if (index !== -1) {
-            playlists[index] = draft /// WRONG!! Mutable Code!
+             setPlaylists([
+                 ...playlists.slice(0, index),
+                 draft,
+                 ...playlists.slice(index + 1)
+             ])
         }
     }
 
-
     useEffect(() => {
         setSelectedPlaylist(playlists.find(p => p.id == selectedId))
-
-    }, [selectedId, forceUpdate])
+    }, [selectedId, playlists])
 
     return (
         <div>
             <h4>PlaylistsView</h4>
-
             {/* .row>.col*2 */}
-
             <div className="row">
                 <div className="col">
                     <PlaylistList
                         onSelected={id => { setSelectedId(id) }}
                         playlists={playlists}
                         selectedId={selectedId} />
-
-
-                    {/* <input type="text" value={zmienna}
-                        onChange={event => setCostam(event.costam) }/> */}
                 </div>
                 <div className="col">
-
-                    {selectedPlaylist && mode === 'details' && <PlaylistDetails playlist={selectedPlaylist} />}
-
-                    {selectedPlaylist && mode === 'form' && <PlaylistEditForm playlist={selectedPlaylist} />}
+                    {selectedPlaylist && mode === 'details' && <PlaylistDetails 
+                    edit={edit}
+                    playlist={selectedPlaylist} />}
+                    {selectedPlaylist && mode === 'form' && <PlaylistEditForm 
+                    save={save}
+                    playlist={selectedPlaylist} 
+                    cancel={cancel}/>}
                 </div>
             </div>
         </div>
