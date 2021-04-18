@@ -35,19 +35,11 @@ export const PlaylistsView = (props: Props) => {
     const [mode, setMode] = useState<'details' | 'form'>('details')
     const [playlists, setPlaylists] = useState<Playlist[]>(data)
 
+    useEffect(() => {
+        setSelectedPlaylist(playlists.find(p => p.id == selectedId))
+    }, [selectedId, playlists])
+
     /* TODO:
-
-        - git checkout -b mojezadanie1
-        - git add .
-        - git commit -m "Moje zadanie"
-        - git checkout master
-        - git pull
-        - git checkout -b mojezadanie2
-        - szuru buru...
-        - git add .
-        - git commit -m "Moje zadanie 2"
-
-
         - Show "Please select playlist when nothing selected"
         - Remove playlists when X clicked
         - Create new playlist
@@ -59,17 +51,29 @@ export const PlaylistsView = (props: Props) => {
     const edit = () => {
         setMode('form')
     }
+
     const cancel = () => {
         setMode('details')
     }
+
     const save = (draft: Playlist) => {
+
+        if (draft.name.length < 3) {
+            return [new Error('Too short!')]
+        }
         setMode('details')
-        setPlaylists(playlists.map(p => p.id === draft.id ? draft : p))
+        setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
+        return null;
     }
 
-    useEffect(() => {
-        setSelectedPlaylist(playlists.find(p => p.id == selectedId))
-    }, [selectedId, playlists])
+    const removePlaylist = (id: Playlist['id']) => {
+        setPlaylists(playlists => playlists.filter(p => p.id !== id))
+
+    }
+
+    const changeSelectedPlaylist = (id: Playlist['id']): void => {
+        setSelectedId(selectedId => selectedId === id ? undefined : id)
+    }
 
     return (
         <div>
@@ -78,7 +82,8 @@ export const PlaylistsView = (props: Props) => {
             <div className="row">
                 <div className="col">
                     <PlaylistList
-                        onSelected={id => { setSelectedId(id) }}
+                        onSelected={changeSelectedPlaylist}
+                        onRemove={removePlaylist}
                         playlists={playlists}
                         selectedId={selectedId} />
 
@@ -88,12 +93,13 @@ export const PlaylistsView = (props: Props) => {
                     {selectedPlaylist && mode === 'details' && <PlaylistDetails
                         edit={edit}
                         playlist={selectedPlaylist} />}
+
                     {selectedPlaylist && mode === 'form' && <PlaylistEditForm
                         save={save}
                         playlist={selectedPlaylist}
                         cancel={cancel} />}
 
-                        <div className="alert alert-info">Please select playlist</div>
+                    {!selectedPlaylist && <div className="alert alert-info">Please select playlist</div>}
                 </div>
             </div>
         </div>
