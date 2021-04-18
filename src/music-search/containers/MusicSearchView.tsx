@@ -12,7 +12,7 @@ const albumsMock: AlbumView[] = [
     { id: "456", name: "Album 456", type: "album", images: [{ height: 300, width: 300, url: "https://www.placecage.com/c/600/600" }] },
 ]
 
-export const MusicSearchView = (props: Props) => {
+export const useSearchAlbums = (api_url: string) => {
     const [results, setResults] = useState<AlbumView[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState('')
@@ -23,27 +23,26 @@ export const MusicSearchView = (props: Props) => {
             setMessage('')
             setIsLoading(true)
 
-            const resp = await fetch('http://localhost:3000/data/albums.json')
+            const resp = await fetch(api_url + '?' + (new URLSearchParams({
+                q: query, type: 'album'
+            })).toString())
             const results = await resp.json()
             setResults(results);
-
         }
         catch (error) { setMessage(error.message) }
         finally { setIsLoading(false) }
     }
 
-    // const searchAlbums = (query: string) => {
-    //     console.log('Search :', query)
-    //     setResults([])
-    //     setMessage('')
-    //     setIsLoading(true)
+    return {
+        searchAlbums,
+        isLoading,
+        message,
+        results
+    }
+}
 
-    //     fetch('http://localhost:3000/data/albums.json')
-    //         .then(resp => resp.json())
-    //         .then(results => { setResults(results); })
-    //         .catch(error => { setMessage(error.message) })
-    //         .finally(() => setIsLoading(false))
-    // }
+export const MusicSearchView = (props: Props) => {
+    const { searchAlbums, isLoading, message, results } = useSearchAlbums('http://localhost:3000/data/albums.json')
 
     return (
         <div>
