@@ -17,18 +17,33 @@ export const MusicSearchView = (props: Props) => {
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState('')
 
-    const searchAlbums = (query: string) => {
-        console.log('Search :', query)
-        setResults([])
-        setMessage('')
-        setIsLoading(true)
+    const searchAlbums = async (query: string) => {
+        try {
+            setResults([])
+            setMessage('')
+            setIsLoading(true)
 
-        fetch('http://localhost:3000/data/albums.json')
-            .then(resp => resp.json())
-            .then(results => { setResults(results); })
-            .catch(error => { setMessage(error.message) })
-            .finally(() => setIsLoading(false))
+            const resp = await fetch('http://localhost:3000/data/albums.json')
+            const results = await resp.json()
+            setResults(results);
+
+        }
+        catch (error) { setMessage(error.message) }
+        finally { setIsLoading(false) }
     }
+
+    // const searchAlbums = (query: string) => {
+    //     console.log('Search :', query)
+    //     setResults([])
+    //     setMessage('')
+    //     setIsLoading(true)
+
+    //     fetch('http://localhost:3000/data/albums.json')
+    //         .then(resp => resp.json())
+    //         .then(results => { setResults(results); })
+    //         .catch(error => { setMessage(error.message) })
+    //         .finally(() => setIsLoading(false))
+    // }
 
     return (
         <div>
