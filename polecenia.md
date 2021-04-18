@@ -20,7 +20,7 @@ x64
 
 ## Extensions
 https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
-
+https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype
 
 # NodeJS
 https://nodejs.org/en/
