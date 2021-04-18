@@ -90,9 +90,11 @@ npm install -ci
 
 git remote add NAZWA_REPO_MATEUSZA https://github.com/ev45ive/lufthansa-react-player.git
 git pull NAZWA_REPO_MATEUSZA master
+git pull --set-upstream NAZWA_REPO_MATEUSZA master
 
 git remote add upstream https://github.com/ev45ive/lufthansa-react-player.git
-git pull upstream master
+git pull --set-upstream upstream master
+git pull
 
 # Playlists 
 
@@ -115,8 +117,8 @@ mkdir -p src/music-search/containers
 
 touch src/model/Search.tsx
 
-touch src/music-search/container/MusicSearchView.tsx
-touch src/music-search/container/MusicSearchView.tsx
+touch src/music-search/containers/MusicSearchView.tsx
+
 touch src/music-search/components/SearchForm.tsx
 touch src/music-search/components/AlbumGrid.tsx
 touch src/music-search/components/AlbumCard.tsx
