@@ -14,10 +14,20 @@ const albumsMock: AlbumView[] = [
 
 export const MusicSearchView = (props: Props) => {
     const [results, setResults] = useState<AlbumView[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [message, setMessage] = useState('')
 
     const searchAlbums = (query: string) => {
         console.log('Search :', query)
-        setResults(albumsMock)
+        setResults([])
+        setMessage('')
+        setIsLoading(true)
+
+        fetch('http://localhost:3000/data/albums.json')
+            .then(resp => resp.json())
+            .then(results => { setResults(results); })
+            .catch(error => { setMessage(error.message) })
+            .finally(() => setIsLoading(false))
     }
 
     return (
@@ -29,6 +39,9 @@ export const MusicSearchView = (props: Props) => {
             </div>
             <div className="row">
                 <div className="col">
+                    {isLoading && <p className="alert alert-info">Loading</p>}
+                    {message && <p className="alert alert-danger">{message}</p>}
+
                     <AlbumGrid albums={results} />
                 </div>
             </div>

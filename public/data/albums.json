@@ -1,7 +1,7 @@
 [
     {
         "id": "123",
-        "name": "Album 123",
+        "name": "Server Album 123",
         "type": "album",
         "images": [
             {
@@ -13,7 +13,7 @@
     },
     {
         "id": "234",
-        "name": "Album 234",
+        "name": "Server Album 234",
         "type": "album",
         "images": [
             {
@@ -25,7 +25,7 @@
     },
     {
         "id": "345",
-        "name": "Album 345",
+        "name": "Server Album 345",
         "type": "album",
         "images": [
             {
@@ -37,7 +37,7 @@
     },
     {
         "id": "456",
-        "name": "Album 456",
+        "name": "Server Album 456",
         "type": "album",
         "images": [
             {
