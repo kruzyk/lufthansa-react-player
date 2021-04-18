@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Album, AlbumView } from '../../model/Search'
 import { AlbumGrid } from '../components/AlbumGrid'
 import { SearchForm } from '../components/SearchForm'
+import { useSearchAlbums } from '../../core/hooks/useSearchAlbums'
 
 interface Props { }
 
@@ -12,37 +13,9 @@ const albumsMock: AlbumView[] = [
     { id: "456", name: "Album 456", type: "album", images: [{ height: 300, width: 300, url: "https://www.placecage.com/c/600/600" }] },
 ]
 
-export const useSearchAlbums = (api_url: string) => {
-    const [results, setResults] = useState<AlbumView[]>([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [message, setMessage] = useState('')
-
-    const searchAlbums = async (query: string) => {
-        try {
-            setResults([])
-            setMessage('')
-            setIsLoading(true)
-
-            const resp = await fetch(api_url + '?' + (new URLSearchParams({
-                q: query, type: 'album'
-            })).toString())
-            const results = await resp.json()
-            setResults(results);
-        }
-        catch (error) { setMessage(error.message) }
-        finally { setIsLoading(false) }
-    }
-
-    return {
-        searchAlbums,
-        isLoading,
-        message,
-        results
-    }
-}
-
 export const MusicSearchView = (props: Props) => {
-    const { searchAlbums, isLoading, message, results } = useSearchAlbums('http://localhost:3000/data/albums.json')
+    // const { searchAlbums, isLoading, message, results } = useSearchAlbums('http://localhost:3000/data/albums.json')
+    const { searchAlbums, isLoading, message, results } = useSearchAlbums('https://api.spotify.com/v1/search')
 
     return (
         <div>

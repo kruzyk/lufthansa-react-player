@@ -5,6 +5,10 @@ export interface AlbumsResponse {
     albums: Album[];
 }
 
+export interface AlbumsSearchResponse {
+    albums: PagingObject<Album>;
+}
+
 export interface AlbumView {
     id:                     string;
     images:                 Image[];
