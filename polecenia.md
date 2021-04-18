@@ -88,6 +88,11 @@ npm start
 npm install
 npm install -ci 
 
+git remote add NAZWA_REPO_MATEUSZA https://github.com/ev45ive/lufthansa-react-player.git
+git pull NAZWA_REPO_MATEUSZA master
+
+git remote add upstream https://github.com/ev45ive/lufthansa-react-player.git
+git pull upstream master
 
 # Playlists 
 
