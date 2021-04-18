@@ -15,7 +15,12 @@ const albumsMock: AlbumView[] = [
 
 export const MusicSearchView = (props: Props) => {
     // const { searchAlbums, isLoading, message, results } = useSearchAlbums('http://localhost:3000/data/albums.json')
-    const { searchAlbums, isLoading, message, results } = useSearchAlbums('https://api.spotify.com/v1/search')
+    const {
+        searchAlbums,
+        isLoading,
+        message,
+        results
+    } = useSearchAlbums('https://api.spotify.com/v1/search')
 
     return (
         <div>
