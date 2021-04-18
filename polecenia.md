@@ -103,3 +103,18 @@ touch src/playlists/containers/PlaylistsView.tsx
 <!-- touch playlists/containers/MyPlaylistsView.tsx
 touch playlists/containers/TopPlaylistsView.tsx
 touch playlists/containers/UserPlaylistsView.tsx -->
+
+## Search 
+mkdir -p src/music-search/components
+mkdir -p src/music-search/containers
+
+touch src/model/Search.tsx
+
+touch src/music-search/container/MusicSearchView.tsx
+touch src/music-search/container/MusicSearchView.tsx
+touch src/music-search/components/SearchForm.tsx
+touch src/music-search/components/AlbumGrid.tsx
+touch src/music-search/components/AlbumCard.tsx
+
+<!-- mkdir -p src/core/services -->
+

@@ -78,7 +78,6 @@ export const PlaylistsView = (props: Props) => {
 
     const removePlaylist = (id: Playlist['id']) => {
         setPlaylists(playlists => playlists.filter(p => p.id !== id))
-
     }
 
     const changeSelectedPlaylist = (id: Playlist['id']): void => {
