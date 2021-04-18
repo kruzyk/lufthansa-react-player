@@ -32,7 +32,7 @@ const data: Playlist[] = [
 export const PlaylistsView = (props: Props) => {
     const [selectedId, setSelectedId] = useState<string | undefined>()
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>()
-    const [mode, setMode] = useState<'details' | 'form'>('details')
+    const [mode, setMode] = useState<'details' | 'form' | 'create'>('details')
     const [playlists, setPlaylists] = useState<Playlist[]>(data)
 
     useEffect(() => {
@@ -56,13 +56,23 @@ export const PlaylistsView = (props: Props) => {
         setMode('details')
     }
 
-    const save = (draft: Playlist) => {
-
+    const saveChangedPlaylist = (draft: Playlist) => {
         if (draft.name.length < 3) {
             return [new Error('Too short!')]
         }
         setMode('details')
         setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
+        return null;
+    }
+
+    const saveNewPlaylist = (draft: Playlist) => {
+        if (draft.name.length < 3) {
+            return [new Error('Too short!')]
+        }
+        draft.id = (~~(Math.random() * Date.now())).toString()
+        setMode('details')
+        setPlaylists(playlists => [...playlists, draft])
+        setSelectedId(draft.id)
         return null;
     }
 
@@ -73,6 +83,13 @@ export const PlaylistsView = (props: Props) => {
 
     const changeSelectedPlaylist = (id: Playlist['id']): void => {
         setSelectedId(selectedId => selectedId === id ? undefined : id)
+    }
+
+    const emptyPlaylist: Playlist = {
+        id: '',
+        name: '',
+        public: false,
+        description: ''
     }
 
     return (
@@ -87,7 +104,7 @@ export const PlaylistsView = (props: Props) => {
                         playlists={playlists}
                         selectedId={selectedId} />
 
-                    <button className="btn btn-info btn-block mt-4">Create New Playlist</button>
+                    <button className="btn btn-info btn-block mt-4" onClick={() => setMode('create')}>Create New Playlist</button>
                 </div>
                 <div className="col">
                     {selectedPlaylist && mode === 'details' && <PlaylistDetails
@@ -95,11 +112,16 @@ export const PlaylistsView = (props: Props) => {
                         playlist={selectedPlaylist} />}
 
                     {selectedPlaylist && mode === 'form' && <PlaylistEditForm
-                        save={save}
+                        save={saveChangedPlaylist}
                         playlist={selectedPlaylist}
                         cancel={cancel} />}
 
-                    {!selectedPlaylist && <div className="alert alert-info">Please select playlist</div>}
+                    {emptyPlaylist && mode === 'create' && <PlaylistEditForm
+                        save={saveNewPlaylist}
+                        playlist={emptyPlaylist}
+                        cancel={cancel} />}
+
+                    {!selectedPlaylist && mode !== 'create' && <div className="alert alert-info">Please select playlist</div>}
                 </div>
             </div>
         </div>
