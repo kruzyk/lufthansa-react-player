@@ -39,14 +39,6 @@ export const PlaylistsView = (props: Props) => {
         setSelectedPlaylist(playlists.find(p => p.id == selectedId))
     }, [selectedId, playlists])
 
-    /* TODO:
-        - Show "Please select playlist when nothing selected"
-        - Remove playlists when X clicked
-        - Create new playlist
-            - Show Empty form when button [ Create new playlist ] cliked
-            - Cancel... go back to details.
-            - Save - add new playlist to list and select in in details.
-    */
 
     const edit = () => {
         setMode('form')
