@@ -111,9 +111,10 @@ export const PlaylistsView = (props: Props) => {
                         playlist={selectedPlaylist} />}
 
                     {selectedPlaylist && mode === 'form' && <PlaylistEditForm
-                        save={saveChangedPlaylist}
                         playlist={selectedPlaylist}
-                        cancel={cancel} />}
+                        save={saveChangedPlaylist}
+                        cancel={cancel}
+                    />}
 
                     {emptyPlaylist && mode === 'create' && <PlaylistEditForm
                         save={saveNewPlaylist}
