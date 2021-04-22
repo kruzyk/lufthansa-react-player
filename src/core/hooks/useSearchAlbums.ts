@@ -59,15 +59,6 @@ export const fetchAlbums = (query: string) => {
     });
 
     return (response.then(response => response.data.albums.items))
-        .catch((err: Error) => {
-            if (isAxiosError(err)) {
-                if (err.response?.status === 401) {
-                    auth.login()
-                }
-                return Promise.reject(err.response?.data.error)
-            }
-            return Promise.reject(err)
-        })
 }
 
 // type Tab = Artist | Album
@@ -102,6 +93,15 @@ export const useFetch = function <T, P>(fetcher: (params: P) => Promise<T>) {
             setIsLoading(true);
 
             const result = await fetcher(params)
+                .catch((err: Error) => {
+                    if (isAxiosError(err)) {
+                        if (err.response?.status === 401) {
+                            auth.login()
+                        }
+                        return Promise.reject(err.response?.data.error)
+                    }
+                    return Promise.reject(err)
+                })
             setResults(result)
 
         }
