@@ -1,7 +1,7 @@
 import React from 'react'
 import { Album, AlbumView } from '../../model/Search'
 import { AlbumGrid } from '../components/AlbumGrid'
-import { SearchForm } from '../components/SearchForm'
+import { SearchForm } from '../../core/components/SearchForm'
 import { fetchAlbums, fetchArtists, useFetch, useSearchAlbums } from '../../core/hooks/useSearchAlbums'
 
 interface Props { }
