@@ -1,3 +1,4 @@
+import axios from "axios";
 import { AuthService } from "./AuthService";
 
 export const auth = new AuthService({
@@ -9,8 +10,15 @@ export const auth = new AuthService({
     show_dialog: 'true'
 });
 
-auth.init()
 
 // Spotify:
-    // holoyis165 @ bulkbye . com
-    // placki 777
+// holoyis165 @ bulkbye . com
+// placki 777
+
+axios.interceptors.request.use(config => {
+    config.headers['Authorization'] = 'Bearer ' + auth.token;
+    return config
+})
+
+
+auth.init()
