@@ -22,25 +22,28 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(resp => resp, (err: Error) => {
-    if (isAxiosError(err)) {
-
-        // Mock / Cache
-        // return Promise.resolve({ data: { albums: { items: albumsMock } } });
-
-        // Fix and Retry request
-        // err.config.params.q = 'batman'
-        // return axios.request(err.config)
-
-        if (err.response?.status === 401) {
-            auth.login()
-        }
-        return Promise.reject(err.response?.data.error)
+    if (!isAxiosError(err)) {
+        return Promise.reject(err)
     }
-    return Promise.reject(err)
+    // Mock / Cache
+    // return Promise.resolve({ data: { albums: { items: albumsMock } } });
+
+    // Fix and Retry request
+    // err.config.params.q = 'batman'
+    // return axios.request(err.config)
+
+    if (err.response?.status === 401) {
+        auth.login()
+    }
+
+    return Promise.reject(err.response?.data.error)
 })
 
 
 auth.init()
+
+
+
 
 
 // type Tab = Artist | Album
