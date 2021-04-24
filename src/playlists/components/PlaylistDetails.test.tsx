@@ -1,5 +1,5 @@
 import { PlaylistDetails } from "./PlaylistDetails"
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, getRoles, logRoles } from '@testing-library/react';
 import { Playlist } from "../../model/Playlist";
 
 export { }
@@ -10,11 +10,21 @@ describe('PlaylistDetails', () => {
         const mockPlaylist: Playlist = {
             id: '123', description: 'opis', name: 'placki', public: true, ...zmiany
         };
-        const { rerender } = render(<PlaylistDetails playlist={mockPlaylist} edit={() => { }} />)
+        const editSpy = jest.fn(() => 'fake return value')
+        const { container } = render(<PlaylistDetails playlist={mockPlaylist} edit={editSpy} />)
         // screen.debug(elem)
-        return { rerender, mockPlaylist }
+        return { container, editSpy }
     }
 
+    test('emits edit event when button clicked', () => {
+        const { editSpy ,container} = setup({})
+        screen.debug()
+        // https://testing-library.com/docs/dom-testing-library/api-accessibility
+        // console.log(getRoles(screen.getByRole('button')))
+        // console.log(getRoles(container))
+        logRoles(container)
+
+    })
 
     test('shows playlist name', () => {
         setup({ name: 'Nalesniki' })
@@ -37,11 +47,9 @@ describe('PlaylistDetails', () => {
     })
 
     test('shows playlist description', () => {
-        setup({ name: 'opisy kolorowe' })
+        setup({ description: 'opisy kolorowe' })
         const elem = screen.getByTestId('playlist_description')
         expect(elem).toHaveTextContent(/^opisy kolorowe$/)
     })
-
-    test('emits edit event when button clicked', () => { })
 
 })

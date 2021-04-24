@@ -18,7 +18,8 @@ export const PlaylistDetails: React.FC<Props> = ({
             <dl data-playlist-id={playlist.id}>
                 <dt>Name:</dt>
 
-                <dd data-testid="playlist_name">{playlist.name}</dd>
+                <dd aria-label="Playlist Name" 
+                    data-testid="playlist_name">{playlist.name}</dd>
 
                 <dt>Public:</dt>
                 <dd data-testid="playlist_ispublic" className={playlist.public ? styles.playlistPublic : styles.playlistPrivate}>
