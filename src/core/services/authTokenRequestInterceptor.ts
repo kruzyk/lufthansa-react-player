@@ -2,9 +2,11 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { AuthService } from "./AuthService";
 import { auth } from "./index";
 
+interface AuthSource {
+    token: string | null
+}
 
-
-export const makeAuthTokenInterceptor = (auth: AuthService) => {
+export const makeAuthTokenInterceptor = (auth: AuthSource) => {
 
     return (config: AxiosRequestConfig): AxiosRequestConfig | Promise<AxiosRequestConfig> => {
         if (auth.token) {

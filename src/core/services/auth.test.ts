@@ -5,7 +5,7 @@ test('interceptor should add Authorization token from auth service', () => {
     const FAKETOKEN = 'ala ma kota'
     const interceptor = makeAuthTokenInterceptor({
         token: FAKETOKEN
-    } as AuthService)
+    })
 
     const result = interceptor({ headers: {} })
 
