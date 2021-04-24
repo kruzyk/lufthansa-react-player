@@ -21,7 +21,7 @@ export const PlaylistDetails: React.FC<Props> = ({
                 <dd data-testid="playlist_name">{playlist.name}</dd>
 
                 <dt>Public:</dt>
-                <dd className={playlist.public ? styles.playlistPublic : styles.playlistPrivate}>
+                <dd data-testid="playlist_ispublic" className={playlist.public ? styles.playlistPublic : styles.playlistPrivate}>
                     {playlist.public ? 'Yes' : 'No'}
                 </dd>
 

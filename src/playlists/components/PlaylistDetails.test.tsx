@@ -11,13 +11,20 @@ describe('PlaylistDetails', () => {
         };
         render(<PlaylistDetails playlist={mockPlaylist} edit={() => { }} />)
 
-        screen.debug()
+        // screen.debug()
         const elem = screen.getByTestId('playlist_name')
-        expect(elem).toHaveTextContent('placki')
+        // expect(elem).toHaveTextContent('placki')
         expect(elem).toHaveTextContent(/^placki$/)
     })
 
-    test('shows playlist public', () => { })
+    test('shows playlist public', () => {
+        const mockPlaylist = {
+            id: '123', description: 'opis', name: 'placki', public: true
+        };
+        render(<PlaylistDetails playlist={mockPlaylist} edit={() => { }} />)
+        const elem = screen.getByTestId('playlist_ispublic')
+        expect(elem).toHaveTextContent('Yes')
+    })
 
     test('shows playlist private', () => { })
 
