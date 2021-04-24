@@ -17,13 +17,17 @@ describe('PlaylistDetails', () => {
     }
 
     test('emits edit event when button clicked', () => {
-        const { editSpy ,container} = setup({})
+        const { editSpy, container } = setup({})
         screen.debug()
         // https://testing-library.com/docs/dom-testing-library/api-accessibility
         // console.log(getRoles(screen.getByRole('button')))
         // console.log(getRoles(container))
-        logRoles(container)
+        // logRoles(container)
+        const btn = screen.getByRole('button', { name: 'Edit' })
+        btn.click()
 
+        // editSpy.mock.calls[ callNumber ][ argNo ]
+        expect(editSpy).toHaveBeenCalled()
     })
 
     test('shows playlist name', () => {
