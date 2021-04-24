@@ -26,7 +26,7 @@ export const PlaylistDetails: React.FC<Props> = ({
                 </dd>
 
                 <dt>Description:</dt>
-                <dd>{playlist.description}</dd>
+                <dd data-testid="playlist_description">{playlist.description}</dd>
             </dl>
 
             <button className="btn btn-danger" onClick={edit}>Edit</button>
