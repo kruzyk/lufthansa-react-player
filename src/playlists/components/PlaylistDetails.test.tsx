@@ -1,32 +1,40 @@
 import { PlaylistDetails } from "./PlaylistDetails"
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 
 export { }
 
 describe('PlaylistDetails', () => {
 
-    test('shows playlist name', () => {
+    beforeEach(() => {
         const mockPlaylist = {
             id: '123', description: 'opis', name: 'placki', public: true
         };
         render(<PlaylistDetails playlist={mockPlaylist} edit={() => { }} />)
+        // screen.debug(elem)
+    })
 
-        // screen.debug()
+
+    test('shows playlist name', () => {
         const elem = screen.getByTestId('playlist_name')
-        // expect(elem).toHaveTextContent('placki')
         expect(elem).toHaveTextContent(/^placki$/)
     })
 
     test('shows playlist public', () => {
+        const elem = screen.getByTestId('playlist_ispublic')
+        expect(elem).toHaveTextContent('Yes')
+        expect(elem).toHaveClass('playlistPublic')
+    })
+
+    test('shows playlist private', () => {
+        cleanup()
         const mockPlaylist = {
-            id: '123', description: 'opis', name: 'placki', public: true
+            id: '123', description: 'opis', name: 'placki', public: false
         };
         render(<PlaylistDetails playlist={mockPlaylist} edit={() => { }} />)
         const elem = screen.getByTestId('playlist_ispublic')
-        expect(elem).toHaveTextContent('Yes')
+        expect(elem).toHaveTextContent('No')
+        expect(elem).toHaveClass('playlistPrivate')
     })
-
-    test('shows playlist private', () => { })
 
     test('shows playlist description', () => { })
 
