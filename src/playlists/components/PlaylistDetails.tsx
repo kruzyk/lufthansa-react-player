@@ -4,12 +4,11 @@ import styles from './PlaylistDetails.module.css'
 
 interface Props {
     playlist: Playlist;
-    // edit: (x: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     edit: () => void
 }
 
 
-export const PlaylistDetails: React.FC<Props> = React.memo(({
+export const PlaylistDetails: React.FC<Props> = ({
     playlist,
     edit
 }) => {
@@ -19,7 +18,7 @@ export const PlaylistDetails: React.FC<Props> = React.memo(({
             <dl data-playlist-id={playlist.id}>
                 <dt>Name:</dt>
 
-                <dd>{playlist.name}</dd>
+                <dd data-testid="playlist_name">{playlist.name}</dd>
 
                 <dt>Public:</dt>
                 <dd className={playlist.public ? styles.playlistPublic : styles.playlistPrivate}>
@@ -33,4 +32,4 @@ export const PlaylistDetails: React.FC<Props> = React.memo(({
             <button className="btn btn-danger" onClick={edit}>Edit</button>
         </div>
     )
-}/* , (prevProps, nextProps) => prevProps.playlist === nextProps.playlist */)
+}/* , (prevProps, nextProps) => prevProps.playlist === nextProps.playlist */
