@@ -24,7 +24,11 @@ export const SearchForm = ({ onSearch }: Props) => {
 
                 <input type="text" className="form-control" placeholder="Search" id="query_id" ref={queryRef}
                     onChange={e => setQuery(e.target.value)}
-                    onKeyUp={e => e.code === 'Enter' && onSearch(query)}
+                    onKeyUp={e => {
+                        // https://create-react-app.dev/docs/debugging-tests/
+debugger
+                        e.key === 'Enter' && onSearch(query)
+                    }}
                 />
 
                 {/* <button className="btn btn-outline-secondary" type="button" onClick={() => onSearch(query)}>Search</button> */}
