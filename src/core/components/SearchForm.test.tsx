@@ -20,8 +20,8 @@ describe('SearchForm', () => {
         // logRoles(container)
     })
 
-
-    test.only('emits query to parent after period of no typing', async () => {
+    // thrown: "Exceeded timeout of 5000 ms for a test.        
+    test('emits query to parent after period of no typing', (done) => {
         jest.useFakeTimers()
         const { searchSpy, container } = setup()
         jest.runOnlyPendingTimers();
@@ -35,7 +35,7 @@ describe('SearchForm', () => {
         expect(searchSpy).not.toHaveBeenCalled()
 
         // Restart timer 500ms
-        userEvent.type(input, 'i ostatni', {})
+        userEvent.type(input, 'i ostatni')
         
         jest.advanceTimersByTime(500 - 1)
         expect(searchSpy).not.toHaveBeenCalled()
@@ -46,6 +46,7 @@ describe('SearchForm', () => {
         expect(searchSpy).toHaveBeenCalledWith('pierwszy i ostatni')
         // logRoles(container)
         // jest.useRealTimers()
+        done()
     })
 
 
