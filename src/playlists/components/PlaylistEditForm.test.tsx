@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react"
+import { act, fireEvent, render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Playlist } from "../../model/Playlist"
 import { PlaylistEditForm } from "./PlaylistEditForm"
 
@@ -28,7 +29,25 @@ describe('PlaylistEditForm', () => {
         expect(checkel).toBeChecked()
     })
 
-    test.todo('counts playlist name length')
+    test('counts playlist name length', () => {
+        const { } = setup({})
+        const nameInputEl = screen.getByLabelText('Name:') as HTMLInputElement
+        const counterRefEl = screen.getByTestId('name_len_counter')
+        expect(counterRefEl).toHaveTextContent(`${nameInputEl.value.length} / 170`)
+
+        // https://kentcdodds.com/blog/fix-the-not-wrapped-in-act-warning
+        // act(() => { // force all pending re-renders in Sync mode
+        //     nameInputEl.value = "Zmienione"
+        //     const ev = new InputEvent('input', { bubbles: true })
+        //     nameInputEl.dispatchEvent(ev)
+        // })
+        // fireEvent.change(nameInputEl, { target: { value: "Zmienione" } })
+
+        userEvent.clear(nameInputEl)
+        userEvent.type(nameInputEl, 'Zmienione', { /* delay: 0  */})
+
+        expect(counterRefEl).toHaveTextContent(`${"Zmienione".length} / 170`)
+    })
 
     test.todo('emits on cancel with no changes')
 
