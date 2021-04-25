@@ -4,6 +4,8 @@ import { Playlist } from "../../model/Playlist"
 import { PlaylistEditForm } from "./PlaylistEditForm"
 
 
+// describe.skip('PlaylistEditForm', () => {
+// describe.only('PlaylistEditForm', () => {
 describe('PlaylistEditForm', () => {
 
     const setup = (zmiany: Partial<Playlist>) => {
@@ -11,11 +13,11 @@ describe('PlaylistEditForm', () => {
             id: '123', name: "Placki", description: 'Awesome', public: true, ...zmiany
         }
         const cancelSpy = jest.fn();
-        const saveSpy = jest.fn();
+        // const saveSpy = jest.fn();
         // const saveSpy = jest.fn((x: Playlist) => { x })
-        // const saveSpy = jest.fn<void, [Playlist]>()
+        const saveSpy = jest.fn<Error[] | null, [Playlist]>()
         render(<PlaylistEditForm playlist={playlist} cancel={cancelSpy} save={saveSpy} />)
-        return { cancelSpy, saveSpy }
+        return { cancelSpy, saveSpy, playlist }
     }
 
     test('shows playlist details', () => {
@@ -44,14 +46,37 @@ describe('PlaylistEditForm', () => {
         // fireEvent.change(nameInputEl, { target: { value: "Zmienione" } })
 
         userEvent.clear(nameInputEl)
-        userEvent.type(nameInputEl, 'Zmienione', { /* delay: 0  */})
+        userEvent.type(nameInputEl, 'Zmienione', { /* delay: 0  */ })
 
         expect(counterRefEl).toHaveTextContent(`${"Zmienione".length} / 170`)
     })
 
-    test.todo('emits on cancel with no changes')
+    test('emits on cancel with no changes', () => {
+        const { cancelSpy } = setup({})
 
-    test.todo('emits changed playlist on save')
+        const cancelBtn = screen.getByRole('button', { name: 'Cancel' })
+        userEvent.click(cancelBtn)
+
+        expect(cancelSpy).toHaveBeenCalledTimes(1)
+    })
+
+
+    test('emits changed playlist on save', () => {
+        const { saveSpy, playlist } = setup({})
+
+        const nameInputEl = screen.getByLabelText('Name:') as HTMLInputElement
+
+        userEvent.clear(nameInputEl)
+        userEvent.type(nameInputEl, 'Zmienione i zapisane', {})
+
+        const saveBtn = screen.getByRole('button', { name: 'Save' })
+        userEvent.click(saveBtn)
+
+        expect(saveSpy).toHaveBeenCalledWith({
+            ...playlist,
+            name: 'Zmienione i zapisane'
+        })
+    })
 
     test.todo('shows empty playlist ')
 
