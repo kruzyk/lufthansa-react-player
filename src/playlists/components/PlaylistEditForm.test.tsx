@@ -1,46 +1,31 @@
-import { render } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import { Playlist } from "../../model/Playlist"
 import { PlaylistEditForm } from "./PlaylistEditForm"
 
-interface Playlist {
-    id: string;
-    name: string;
-    public: boolean;
-    description: string;
-}
-// type mode = 'show' | 'edit'
-// type result = { type: 'album' } | { type: 'artist' }
-// type props = { x: string } & { y: number }
-// type keys = keyof Playlist // 'id' | 'name' | ...
-
-
-// type Partial<T> = {
-//     // [klucz in 'id' | 'name']: string | number;
-//     // [klucz in keys]: string | number;
-//     // [klucz in keyof Playlist]: string | number;
-//     // [klucz in keyof Playlist]: Playlist[klucz]
-//     // [klucz in keyof Playlist]?: Playlist[klucz]
-//     // [klucz in keyof Playlist]-?: Playlist[klucz]
-//     // readonly [klucz in keyof Playlist]: Playlist[klucz]
-//     // [klucz in keyof Playlist]?: Playlist[klucz]
-//     [klucz in keyof T]?: T[klucz]
-// }
-
-const x: Partial<Playlist> = {
-    
-}
 
 describe('PlaylistEditForm', () => {
 
-    const setup = (playlist: Playlist) => {
+    const setup = (zmiany: Partial<Playlist>) => {
         const playlist: Playlist = {
-            id: '123', name: "Placki", description: 'Awesome', public: true
+            id: '123', name: "Placki", description: 'Awesome', public: true, ...zmiany
         }
-        render(<PlaylistEditForm playlist={playlist} />)
+        const cancelSpy = jest.fn();
+        const saveSpy = jest.fn();
+        // const saveSpy = jest.fn((x: Playlist) => { x })
+        // const saveSpy = jest.fn<void, [Playlist]>()
+        render(<PlaylistEditForm playlist={playlist} cancel={cancelSpy} save={saveSpy} />)
+        return { cancelSpy, saveSpy }
     }
 
     test('shows playlist details', () => {
-
+        const { } = setup({})
+        const nameel = screen.getByLabelText('Name:')
+        const nameelem2 = screen.getByDisplayValue('Placki')
+        // expect(elem).toHaveAttribute('value','Placki')
+        expect(nameel).toBe(nameelem2)
+        const descrel = screen.getByDisplayValue('Awesome')
+        const checkel = screen.getByLabelText('Public')
+        expect(checkel).toBeChecked()
     })
 
     test.todo('counts playlist name length')
