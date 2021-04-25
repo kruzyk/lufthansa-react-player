@@ -13,11 +13,10 @@ describe('PlaylistEditForm', () => {
             id: '123', name: "Placki", description: 'Awesome', public: true, ...zmiany
         }
         const cancelSpy = jest.fn();
-        // const saveSpy = jest.fn();
-        // const saveSpy = jest.fn((x: Playlist) => { x })
+
         const saveSpy = jest.fn<Error[] | null, [Playlist]>()
-        render(<PlaylistEditForm playlist={playlist} cancel={cancelSpy} save={saveSpy} />)
-        return { cancelSpy, saveSpy, playlist }
+        const { rerender } = render(<PlaylistEditForm playlist={playlist} cancel={cancelSpy} save={saveSpy} />)
+        return { cancelSpy, saveSpy, playlist, rerender }
     }
 
     test('shows playlist details', () => {
@@ -60,6 +59,19 @@ describe('PlaylistEditForm', () => {
         expect(cancelSpy).toHaveBeenCalledTimes(1)
     })
 
+    test.skip('change selected playlist without unsaved changes', () => {
+        const { cancelSpy, saveSpy, playlist, rerender } = setup({})
+
+        const innaPlaylist: Playlist = { id: '234', name: 'Inna', description: '', public: true }
+        rerender(<PlaylistEditForm playlist={innaPlaylist} cancel={cancelSpy} save={saveSpy} />)
+        
+        const UnsavedChanges = screen.getByText('Unsaved Changes')
+        const descrel = screen.getByDisplayValue('Inna')
+    })
+
+    test.skip('change selected playlist with unsaved changes', () => {
+
+    })
 
     test('emits changed playlist on save', () => {
         const { saveSpy, playlist } = setup({})
