@@ -10,20 +10,25 @@ interface Playlist {
 }
 // type mode = 'show' | 'edit'
 // type result = { type: 'album' } | { type: 'artist' }
+// type props = { x: string } & { y: number }
+// type keys = keyof Playlist // 'id' | 'name' | ...
 
-type PlaylistMap = {
-    // [klucz: string]: string | number;
+
+// type Partial<T> = {
+//     // [klucz in 'id' | 'name']: string | number;
+//     // [klucz in keys]: string | number;
+//     // [klucz in keyof Playlist]: string | number;
+//     // [klucz in keyof Playlist]: Playlist[klucz]
+//     // [klucz in keyof Playlist]?: Playlist[klucz]
+//     // [klucz in keyof Playlist]-?: Playlist[klucz]
+//     // readonly [klucz in keyof Playlist]: Playlist[klucz]
+//     // [klucz in keyof Playlist]?: Playlist[klucz]
+//     [klucz in keyof T]?: T[klucz]
+// }
+
+const x: Partial<Playlist> = {
+    
 }
-
-const x: PlaylistMap = {
-    '123': '123',
-    '12123': '123',
-    123234: 123,
-    1232343: 123,
-    123123123: 123,
-    123123: 123,
-}
-
 
 describe('PlaylistEditForm', () => {
 
