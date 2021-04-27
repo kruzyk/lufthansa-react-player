@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { useFetch } from "../../core/hooks/useFetch";
-import { usePlaylists } from "../../core/hooks/usePlaylists";
+import { fetchPlaylists } from "../../core/hooks/usePlaylists";
 import { Playlist } from "../../model/Playlist";
 import { PlaylistsTDD } from "./PlaylistsTDD";
 
@@ -17,20 +17,27 @@ describe('PlaylistsTDD', () => {
     }
 
     // RED -> Green -> Refactor -> RED ...
-    test('loads and shows a list playlists', () => {
-        setup()
+    test('loads and shows a list playlists', async () => {
+        const mockPlaylists: Playlist[] = [
+            { id: '123', name: 'TestTitle', description: '', public: false }
+        ];
+        let resolve!: Function
+        const promise = new Promise<any>(r => { resolve = r; });
         
+        (fetchPlaylists as jest.Mock).mockReturnValue(promise)
+        // (usePlaylists as jest.Mock).mockImplementation(() => { return mockPlaylists })
+
         // Arrange - Given ... // no playlists
+        setup()
         const noItems = screen.queryAllByRole('listitem', {})
         expect(noItems).toHaveLength(0)
 
         // Act - When ... // loads playlists
-        const mockPlaylists: Playlist[] = [
-            { id: '123', name: 'TestTitle', description: '', public: false }
-        ];
-        // (usePlaylists as jest.Mock).mockImplementation(() => { return mockPlaylists })
-        (usePlaylists as jest.Mock).mockReturnValue(mockPlaylists)
-        expect(usePlaylists).toHaveBeenCalled()
+        expect(fetchPlaylists).toHaveBeenCalled()
+        await act(() => {
+            resolve(mockPlaylists)
+            return promise
+        })
 
         // Assert - Then ... // Shows list of playlists
         const items = screen.queryAllByRole('listitem', {})
@@ -43,6 +50,12 @@ describe('PlaylistsTDD', () => {
     test.todo('selecting playlistlist from list shows details')
 
     test.todo('clicking edit in details shitches to form')
+
+    // test('Function adds numbers', () => {
+    //     const add = (x:number, y:number) => 5;
+
+    //     expect(add(2, 3)).toEqual(5)
+    // })
 
     /* 
 

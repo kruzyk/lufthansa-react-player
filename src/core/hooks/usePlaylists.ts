@@ -4,8 +4,8 @@ import { useFetch } from "./useFetch"
 
 
 // export const usePlaylists = (): [{ isLoading: boolean, message: string, results: Playlist[] | null }, Function] => {
-    
-export const usePlaylists = (): Playlist[] => {
+
+export const fetchPlaylists = (): Promise<Playlist[]> => {
     throw Error('Not implemented yet!!!')
     // useFetch(() => axios.get())
 

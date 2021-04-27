@@ -14,11 +14,12 @@ export const PlaylistList = React.memo(({
 
     return (
         <div>
-            <div className="list-group">
+            <div className="list-group" role="list">
                 {playlists.map((playlist, index) =>
                     <div className={`list-group-item ${selectedId === playlist.id ? 'active' : ''}`}
                         data-playlist-id={playlist.id}
                         onClick={() => { onSelected(playlist.id) }}
+                        role="listitem"
                         key={playlist.id}>
 
                         <span>{playlist.name}</span>
