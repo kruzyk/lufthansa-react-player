@@ -7,6 +7,7 @@ import { PlaylistsTDD } from "./PlaylistsTDD";
 
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
+import userEvent from "@testing-library/user-event";
 
 
 // jest.mock("../../core/hooks/usePlaylists")
@@ -15,15 +16,19 @@ import { setupServer } from 'msw/node'
 describe('PlaylistsTDD', () => {
 
     // https://mswjs.io/docs/getting-started/mocks/rest-api
+    const mockPlaylists: Playlist[] = [
+        { id: '123', name: 'TestTitle 1', description: '', public: false },
+        { id: '234', name: 'TestTitle 2', description: '', public: false },
+    ];
     const server = setupServer(
         rest.get('https://api.spotify.com/v1/me/playlists', (req, res, ctx) => {
-            const mockPlaylists: Playlist[] = [
-                { id: '123', name: 'TestTitle 1', description: '', public: false },
-                { id: '234', name: 'TestTitle 2', description: '', public: false },
-            ];
             ctx.delay(500)
             return res(ctx.json(mockPlaylists))
         }),
+        rest.get('https://api.spotify.com/v1/playlists/:playlist_id', (req, res, ctx) => {
+            return res(ctx.json(mockPlaylists.find(p => p.id == req.params.playlist_id)))
+        })
+
         // https://mswjs.io/docs/basics/request-matching
         // GET https://api.spotify.com/v1/playlists/:playlist_id
         // req.params.playlist_id
@@ -51,11 +56,11 @@ describe('PlaylistsTDD', () => {
 
         // Act - When ... // loads playlists
         setup()
-        const noItems = screen.queryAllByRole('listitem', {})
+        const noItems = screen.queryAllByRole('tab', {})
         expect(noItems).toHaveLength(0)
-        
+
         // Assert - Then ... // Shows list of playlists
-        const items = await screen.findAllByRole('listitem', {})
+        const items = await screen.findAllByRole('tab', {})
 
         expect(items).toHaveLength(2)
         expect(items[0]).toHaveTextContent('TestTitle 1')
@@ -64,7 +69,16 @@ describe('PlaylistsTDD', () => {
 
     // test.todo('shows list of no playlists')
 
-    test.todo('selecting playlist from list loads details')
+    test('selecting playlist from list loads details', async () => {
+
+        setup()
+        const items = await screen.findAllByRole('tab', {})
+        // screen.debug()
+        userEvent.click(screen.getByText('TestTitle 1', { exact: false}))
+
+        await screen.findByTestId('playlist_name')
+
+    })
 
     test.todo('clicking edit in details show edit form')
 

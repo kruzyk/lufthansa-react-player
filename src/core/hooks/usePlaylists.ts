@@ -12,3 +12,10 @@ export const fetchPlaylists = (): Promise<Playlist[]> => {
     return axios.get<Playlist[]>('https://api.spotify.com/v1/me/playlists').then(resp => resp.data)
 
 }
+
+
+
+export const fetchPlaylist = (id: Playlist['id']): Promise<Playlist> => {
+    return axios.get<Playlist>('https://api.spotify.com/v1/playlists/' + id).then(resp => resp.data)
+
+}
