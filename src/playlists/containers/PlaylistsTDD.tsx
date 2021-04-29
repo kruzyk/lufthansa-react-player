@@ -19,10 +19,10 @@ export const PlaylistsTDD = (props: Props) => {
     return (
         <div>
 
-            <PlaylistList playlists={playlists}
+            {/* <PlaylistList playlists={playlists}
                 onRemove={() => { }}
                 onSelected={() => { }}
-            />
+            /> */}
 
         </div>
     )

@@ -2,35 +2,42 @@ import React, { useState } from 'react'
 import { Playlist } from '../../model/Playlist'
 
 interface Props {
-    playlists: Playlist[]
-    selectedId?: string
-    onSelected(id: string): void 
-    onRemove(id: Playlist['id']): void
+    playlists: string[]
+    // selectedId?: string
+    // onSelected(id: string): void
+    // onRemove(id: Playlist['id']): void
 }
 
-export const PlaylistList = React.memo(({
-    playlists, selectedId, onSelected, onRemove
-}: Props) => {
+export const PlaylistList = ({ playlists }: Props) => {
 
     return (
         <div>
-            <div className="list-group" role="list">
-                {playlists.map((playlist, index) =>
-                    <div className={`list-group-item ${selectedId === playlist.id ? 'active' : ''}`}
-                        data-playlist-id={playlist.id}
-                        onClick={() => { onSelected(playlist.id) }}
-                        role="listitem"
-                        key={playlist.id}>
+            {!playlists.length && <p>No playlists</p>}
 
-                        <span>{playlist.name}</span>
-
-                        <button className="btn btn-light close" onClick={(event) => {
-                            event.stopPropagation()
-                            onRemove(playlist.id)
-                        }}>&times;</button>
-                    </div>
+            <ul className="list-group-item">
+                {playlists.map((p, index) =>
+                    <li key={p}>
+                        <span>{index + 1}. {p}</span>
+                    </li>
                 )}
-            </div>
+            </ul>
         </div>
     )
-})
+}
+// <div className="list-group" role="list">
+//     {playlists.map((playlist, index) =>
+//         <div className={`list-group-item ${selectedId === playlist.id ? 'active' : ''}`}
+//             data-playlist-id={playlist.id}
+//             onClick={() => { onSelected(playlist.id) }}
+//             role="listitem"
+//             key={playlist.id}>
+
+//             <span>{playlist.name}</span>
+
+//             <button className="btn btn-light close" onClick={(event) => {
+//                 event.stopPropagation()
+//                 onRemove(playlist.id)
+//             }}>&times;</button>
+//         </div>
+//     )}
+// </div>
