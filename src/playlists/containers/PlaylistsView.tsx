@@ -75,7 +75,10 @@ export const PlaylistsView = (props: Props) => {
             return [new Error('Too short!')]
         }
         draft.id = (~~(Math.random() * Date.now())).toString()
+
+        // setPlaylists([...playlists, draft])
         setPlaylists(playlists => [...playlists, draft])
+
         replace('/playlists/' + draft.id + '/')
         return null;
     }, [])
