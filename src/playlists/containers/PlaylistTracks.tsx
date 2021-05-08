@@ -1,5 +1,6 @@
 // tsrcc
 import React, { Component } from 'react'
+import { SearchForm } from '../../core/components/SearchForm'
 import { Playlist } from '../../model/Playlist'
 import { SimpleTrack, Track } from '../../model/Search'
 import SelectPlaylist from '../components/SelectPlaylist'
@@ -108,6 +109,7 @@ export default class PlaylistTracks extends React.Component<Props, State> {
                 <div className="row">
                     <div className="col">
                         {/* <SelectPlaylist playlists={this.state.playlists} onSelect={(id) => this.selectPlaylist(id)} /> */}
+                        <SearchForm onSearch={() => this.setState({})} query='' />
                         <SelectPlaylist playlists={this.state.playlists} onSelect={this.selectPlaylist} />
                         <hr />
 
