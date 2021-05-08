@@ -52,3 +52,5 @@ export const LinkDecorator: React.FC<
             window.history.pushState('', '', to)
         }} >{children}</a>
     }
+
+const IsADecorator: React.FC<{ tag: string }> = ({ tag, children }) => React.createElement(tag, {}, children)
