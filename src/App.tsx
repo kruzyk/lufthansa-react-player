@@ -16,9 +16,9 @@ function App() {
 
             <h1>MusicApp</h1>
 
-<PlaylistsTDD/>
-            {/* <PlaylistsView /> */}
-            {/* <MusicSearchView/> */}
+            {/* <PlaylistsTDD /> */}
+            <PlaylistsView />
+            <MusicSearchView/>
           </div>
         </div>
       </div>
