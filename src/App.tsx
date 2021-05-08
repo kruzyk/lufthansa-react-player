@@ -1,4 +1,3 @@
-/// <reference path="./index.d.tsx" />
 import React from 'react';
 import { PlaylistsView } from './playlists/containers/PlaylistsView';
 
@@ -9,7 +8,6 @@ import { PlaylistsTDD } from './playlists/containers/PlaylistsTDD';
 
 // npm i --save-dev @types/react-router
 import { Redirect, Route, Switch } from 'react-router'
-import { HashRouter } from 'react-router-dom';
 
 function App() {
   return (
