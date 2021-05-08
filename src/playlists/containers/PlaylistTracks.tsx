@@ -81,25 +81,22 @@ export default class PlaylistTracks extends React.Component<Props, State> {
 
     save = (draft: SimpleTrack) => {
 
-        console.log(1, this.state.selectedPlaylist?.tracks![0].name)
-        this.setState((prevState:State) => {
-            console.log(4, this.state.selectedPlaylist?.tracks![0].name)
+        this.setState((prevState: State) => {
             return {
                 selectedPlaylist: {
-                    ...this.state.selectedPlaylist!,
-                    tracks: this.state.selectedPlaylist?.tracks?.map(t => t.id === draft.id ? draft : t) || []
+                    ...prevState.selectedPlaylist!,
+                    tracks: prevState.selectedPlaylist?.tracks?.map(t => t.id === draft.id ? draft : t) || []
                 }
             }
-        }, () => console.log(6, this.state.selectedPlaylist?.tracks![0].name))
-        console.log(2, this.state.selectedPlaylist?.tracks![0].name)
+        }, () => { })
 
-        this.setState((prevState:State) => {
-            console.log(5, this.state.selectedPlaylist?.tracks![0].name)
+
+        this.setState((prevState: State) => {
             return {
-                playlists: this.state.playlists.map(p => p.id !== this.state.selectedPlaylist?.id ? p : this.state.selectedPlaylist!),
+                playlists: prevState.playlists.map(p => p.id !== prevState.selectedPlaylist?.id ? p : prevState.selectedPlaylist!),
             }
-        }, () => console.log(7, this.state.selectedPlaylist?.tracks![0].name))
-        console.log(3, this.state.selectedPlaylist?.tracks![0].name)
+        }, () => { })
+
     }
 
     render() {
