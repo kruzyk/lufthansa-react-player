@@ -22,12 +22,12 @@ export const NavBar = (props: Props) => {
                         <ul className="navbar-nav">
 
                             <li className="nav-item">
-                                <a className="nav-link" href="#/playlists">Playlists</a>
+                                <a className="nav-link" href="/playlists" >Playlists</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#/search">Search</a>
+                                <a className="nav-link" href="/search">Search</a>
                             </li>
-
+                            <LinkDecorator to="/playlists" className="nav-link" />
                         </ul>
                     </div>
                 </div>
@@ -35,3 +35,19 @@ export const NavBar = (props: Props) => {
         </div>
     )
 }
+
+export const LinkDecorator: React.FC<
+    { to: string } & React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
+> = ({
+    to,
+    children,
+    ...linkProps
+}) => {
+        return <a {...linkProps} href={to} onClick={e => {
+            e.preventDefault()
+
+            linkProps.onClick && linkProps.onClick(e);
+
+            history.pushState('', '', to)
+        }} >{children}</a>
+    }
