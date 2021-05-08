@@ -8,7 +8,8 @@ import { MusicSearchView } from './music-search/containers/MusicSearchView';
 import { PlaylistsTDD } from './playlists/containers/PlaylistsTDD';
 
 // npm i --save-dev @types/react-router
-import { Route } from 'react-router'
+import { Redirect, Route, Switch } from 'react-router'
+import { HashRouter } from 'react-router-dom';
 
 function App() {
   return (
@@ -19,10 +20,14 @@ function App() {
           <div className="col">
 
             <h1>MusicApp</h1>
-            <Route path=""></Route>
-            {/* <PlaylistsTDD /> */}
-            <PlaylistsView />
-            <MusicSearchView />
+
+            <Switch>
+              <Redirect path="/" exact={true} to="/playlists" />
+              <Route path="/playlists" component={PlaylistsView} />
+              <Route path="/search" component={MusicSearchView} />
+              <Route path="*" render={() => <h1>Page Not Found</h1>} />
+            </Switch>
+
           </div>
         </div>
       </div>

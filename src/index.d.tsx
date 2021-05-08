@@ -1,6 +1,6 @@
 
 
-declare module 'react-router' {
+// declare module 'react-router' {
 
-    export const Route: React.FunctionComponent<{ path: string }>
-}
+//     export const Route: React.FunctionComponent<{ path: string }>
+// }
