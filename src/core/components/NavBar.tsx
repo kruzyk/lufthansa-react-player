@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 interface Props {
 
@@ -22,12 +23,12 @@ export const NavBar = (props: Props) => {
                         <ul className="navbar-nav">
 
                             <li className="nav-item">
-                                <a className="nav-link" href="/playlists" >Playlists</a>
+                                <NavLink className="nav-link" to="/playlists" activeClassName="placki active">Playlists</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/search">Search</a>
+                                <NavLink className="nav-link" to="/search">Search</NavLink>
                             </li>
-                            <LinkDecorator to="/playlists" className="nav-link" />
+                            {/* <LinkDecorator to="/playlists" className="nav-link" /> */}
                         </ul>
                     </div>
                 </div>
@@ -48,6 +49,6 @@ export const LinkDecorator: React.FC<
 
             linkProps.onClick && linkProps.onClick(e);
 
-            history.pushState('', '', to)
+            window.history.pushState('', '', to)
         }} >{children}</a>
     }
