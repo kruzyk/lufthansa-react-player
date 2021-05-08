@@ -1,20 +1,36 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Album, AlbumView } from '../../model/Search'
 import { AlbumGrid } from '../components/AlbumGrid'
 import { SearchForm } from '../../core/components/SearchForm'
 import { fetchAlbums, fetchArtists, useSearchAlbums } from '../../core/hooks/useSearchAlbums'
 import { useFetch } from '../../core/hooks/useFetch'
+import { RouteComponentProps } from 'react-router'
 
-interface Props { }
+interface Props extends RouteComponentProps { }
 
 export const MusicSearchView = (props: Props) => {
-    const [{ isLoading, message, results }, setQuery] = useFetch(fetchAlbums)
-    
+    const [{ isLoading, message, results, params: query }, setQuery] = useFetch(fetchAlbums)
+
+    useEffect(() => {
+        const q = new URLSearchParams(props.location.search.slice(1)).get('q')
+        window.document.title = 'Searching ' + q
+        setQuery(q)
+    }, [props.location.search])
+
+    const search = useCallback((query) => {
+        // props.history.push('/search?q=' + query)
+        // props.history.push({
+        props.history.replace({
+            search: '?q=' + query,
+            pathname: '/search',
+        })
+    }, [])
+
     return (
         <div>
             <div className="row">
                 <div className="col">
-                    <SearchForm onSearch={setQuery} />
+                    <SearchForm onSearch={search} query={query || ''} />
                 </div>
             </div>
             <div className="row">

@@ -53,4 +53,4 @@ export const LinkDecorator: React.FC<
         }} >{children}</a>
     }
 
-const IsADecorator: React.FC<{ tag: string }> = ({ tag, children }) => React.createElement(tag, {}, children)
+const IsADecorator: React.FC<{ tag: string }> = ({ tag, children, ...rest }) => React.createElement(tag, {...rest}, children)
