@@ -6,8 +6,8 @@ export default {
     title: 'Playlists/Details',
     component: PlaylistDetails,
     // argTypes: { onEdit: { action: 'clicked' } }
-    decorators:[
-        
+    decorators: [
+        Story => <div style={{ maxWidth: 500, margin: '0 auto' }} ><Story /></div>
     ]
 } as Meta
 
