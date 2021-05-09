@@ -39,7 +39,7 @@ export const PlaylistsView = (props: Props) => {
     const [filter, setFilter] = useState('')
 
     const { replace, push } = useHistory()
-    // const { search: searchParams } = useLocation()
+    const { search: searchParams } = useLocation()
     // /user/:user_id/posts/:post_id/comments/345/edit
     const { playlist_id } = useParams<{ playlist_id: string }>()
 

@@ -1,5 +1,6 @@
 // tsrcc
 import React, { Component } from 'react'
+import { RouteComponentProps } from 'react-router'
 import { SearchForm } from '../../core/components/SearchForm'
 import { Playlist } from '../../model/Playlist'
 import { SimpleTrack, Track } from '../../model/Search'
@@ -44,7 +45,7 @@ const playlistsData: Playlist[] = [
 ]
 
 
-interface Props {
+interface Props extends RouteComponentProps {
 
 }
 interface State {
@@ -89,6 +90,8 @@ export default class PlaylistTracks extends MyBaseComponent<Props, State> {
     }
 
     save = (draft: SimpleTrack) => {
+
+        // this.props.match.
 
         this.setState((prevState: State) => {
             return {
