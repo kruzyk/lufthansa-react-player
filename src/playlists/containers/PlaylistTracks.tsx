@@ -53,13 +53,21 @@ interface State {
     selectedTrack?: SimpleTrack
 }
 
-export default class PlaylistTracks extends React.Component<Props, State> {
+export class MyBaseComponent<Props, State> extends React.Component<Props, State> {
+    reusableBaseMethod() { }
+}
+
+export default class PlaylistTracks extends MyBaseComponent<Props, State> {
     state: State = {
         playlists: playlistsData,
         selectedPlaylist: playlistsData[0]
     }
 
     // constructor(props: Props) {
+    //     this.state: State = {
+    //         playlists: playlistsData,
+    //         selectedPlaylist: playlistsData[0]
+    //     }
     //     super(props)
     //     // this.selectPlaylist = this.selectPlaylist.bind(this);
     //     this.selectPlaylist = () => this.selectPlaylist;
@@ -98,6 +106,13 @@ export default class PlaylistTracks extends React.Component<Props, State> {
             }
         }, () => { })
 
+        this.reusableBaseMethod()
+    }
+
+    formRef = React.createRef<TrackForm>()
+
+    reset = () => {
+        this.formRef.current?.resetForm()
     }
 
     render() {
@@ -119,7 +134,11 @@ export default class PlaylistTracks extends React.Component<Props, State> {
                     <div className="col">
                         {this.state.selectedTrack && <TrackDetails track={this.state.selectedTrack} />}
 
-                        {this.state.selectedTrack && <TrackForm track={this.state.selectedTrack} onSave={this.save} />}
+                        {this.state.selectedTrack && <>
+                            <TrackForm track={this.state.selectedTrack} onSave={this.save} ref={this.formRef} />
+                            <button className="btn btn-danger" onClick={this.reset}>Reset</button>
+                        </>
+                        }
 
                     </div>
                 </div>

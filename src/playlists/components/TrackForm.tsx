@@ -28,6 +28,8 @@ export default class TrackForm extends PureComponent<Props, State> {
     // componentDidCatch(){}
 
     // this.setState(getDerivedStateFromProps())
+    // useEffect(() => { setTrack(nextProps.track.id === prevState.track.id ? prevState.track : nextProps.track) }, [nextProps,prevState] )
+
     static getDerivedStateFromProps(nextProps: Readonly<Props>, prevState: State): Partial<State> {
         return { track: nextProps.track.id === prevState.track.id ? prevState.track : nextProps.track }
     }
@@ -55,6 +57,12 @@ export default class TrackForm extends PureComponent<Props, State> {
         this.props.onSave(this.state.track)
     }
 
+    resetForm() {
+        this.setState({
+            track: { ...this.props.track }
+        })
+    }
+
     render() {
         return (
             <div>
@@ -62,10 +70,10 @@ export default class TrackForm extends PureComponent<Props, State> {
                 <div className="form-group">
                     <label>Name:</label>
                     <input type="text" className="form-control" value={this.state.track.name} onChange={this.handleChange} ref={this.nameRef} />
-                </div>
+                </div >
                 <hr />
                 <button className="btn btn-success" onClick={this.save}>Save</button>
-            </div>
+            </div >
         )
     }
 }
