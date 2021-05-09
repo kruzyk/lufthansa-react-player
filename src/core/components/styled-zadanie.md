@@ -19,3 +19,5 @@
     - wyswietlanie bledu walidacji przy polu po opuszceniu pola (onBlur)
     - onSave = emituje wszystkie pola formularza jako obiekt (tylko kiedy nie ma błedów)
     - opcjonalnie testy inputa i hooka
+
+- na osobnym Route w app
