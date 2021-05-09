@@ -137,8 +137,7 @@ export default class PlaylistTracks extends MyBaseComponent<Props, State> {
                         {this.state.selectedTrack && <>
                             <TrackForm track={this.state.selectedTrack} onSave={this.save} ref={this.formRef} />
                             <button className="btn btn-danger" onClick={this.reset}>Reset</button>
-                        </>
-                        }
+                        </>}
 
                     </div>
                 </div>
