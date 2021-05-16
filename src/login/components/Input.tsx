@@ -14,29 +14,41 @@ interface Props {
   isValid: boolean
 }
 
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 15px;
+`
+
+const Error = styled.span`
+    color: red;
+`
+
 const Label = styled.label`
-  padding: 10px;
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
   `
 
 const InputField = styled.input`
-    padding:10px;
-    border-radius:10px;
-
-    ${props => props.disabled === true && css`
-    background: grey;
-    color: grey;
-  `}
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #777;
+    background-color: #eee;
+    outline: none;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    margin: 0 0 8px 0;
 `
 
 const Input: React.FC<Props> = ({ id, type, name, value, label, placeholder, handleChange, errorMessage, disabled, required, isValid }) => {
   return (
-    <div className="inputContainer">
+    <InputContainer>
       <Label htmlFor={id}>{label}</Label>
       <InputField id={id} type={type} name={name} value={value} onChange={handleChange} />
       {errorMessage && !isValid && (
-        <span className="error">{errorMessage}</span>
+        <Error>{errorMessage}</Error>
       )}
-    </div>
+    </InputContainer>
   );
 }
 
