@@ -1,29 +1,47 @@
 // tsrcc
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import { Input } from '../components/Input'
+import { useState } from "react";
+import styled, { css } from "styled-components";
+import LoginForm from "../components/LoginForm";
 
-
-interface Props {
+export interface DataProps {
+    login: string;
+    password: string;
 }
-interface State {
-}
 
-export const StyledLogin = styled.div<Props>`
-    display: flex;
-    justify-content: center;
-`
+export const Form = styled.form`
+    max-width: 400px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    padding: 20px;
 
+      &_title {
+      margin: 0 0 20px;
+      text-align: center;
+	}
+`;
 
-export default class Login extends React.Component<Props, State> {
-    state: State = {
-    }
+const defaultData: DataProps = {
+    login: "",
+    password: "",
+};
 
-    render() {
-        return (
-            <StyledLogin>
-                <Input disabled={false} type={"email"} placeholder={"email"} required={true} value={""} />
-            </StyledLogin>
-        )
-    }
-}
+const LoginView = () => {
+    const [data, setData] = useState(defaultData);
+
+    const onLogin = (dataDraft: DataProps) => {
+        setData(dataDraft);
+    };
+
+    return (
+        <Form>
+            <h1 className="loginForm_title" data-testid="login">Login</h1>
+            <LoginForm onLogin={onLogin} />
+            <div>
+                <p>{data.login && `Login: ${data.login}`}</p>
+                <p>{data.password && `Pass: ${data.password}`}</p>
+            </div>
+        </Form>
+    );
+};
+
+export default LoginView
